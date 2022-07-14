@@ -1,11 +1,22 @@
+import { NotFoundError } from "../../infrastructure/commons/errors/not-found-error";
 import { IOrganizationAdapter } from "../../application/interfaces/organization";
 import { Organization } from "../../domain/organization";
 import  pool  from "../../infrastructure/database/cockroach"
 
 export default class implements IOrganizationAdapter {
 
-    createOrganization(organization: Organization): Promise<boolean> {
-        throw new Error("Method not implemented.");
+    async createOrganization(name: string, status: number): Promise<boolean> {
+        const query = {
+            text: 'INSERT INTO organization (name, status) VALUES ($1, $2) RETURNING id_organization',
+            values: [name, status],
+          };
+      
+        const result = await  pool.query(query);
+    
+        if (!result.rows[0].id_organization) {
+            throw new Error('Organization could not be created');
+        }
+        return true
     }
 
     async getAllOrganizations(): Promise<Organization[]> {
@@ -16,9 +27,8 @@ export default class implements IOrganizationAdapter {
       
         const result = await  pool.query(query);
     
-        console.log(result.rows)
         if (!result.rowCount) {
-            throw new Error('No organizations found');
+            throw new NotFoundError('Organizations not found');
         }
         return result.rows.map(org => new Organization(org))
     }

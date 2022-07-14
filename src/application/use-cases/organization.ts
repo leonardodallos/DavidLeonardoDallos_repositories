@@ -11,8 +11,8 @@ export default class implements IOrganizationUseCase {
         this.adapter = adapter
     }
   
-    createOrganization(organization: Organization): Promise<boolean> {
-        return this.adapter.createOrganization(organization)
+    createOrganization(name: string, status: number): Promise<boolean> {
+        return this.adapter.createOrganization(name, status)
     }
 
     getAllOrganizations(): Promise<Organization[]> {
