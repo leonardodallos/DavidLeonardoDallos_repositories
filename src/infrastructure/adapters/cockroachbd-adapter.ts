@@ -26,7 +26,7 @@ export default class implements IOrganizationAdapter {
           };
       
         const result = await  pool.query(query);
-    
+
         if (!result.rowCount) {
             throw new NotFoundError('Organizations not found');
         }
@@ -37,7 +37,18 @@ export default class implements IOrganizationAdapter {
         throw new Error("Method not implemented.");
     }
 
-    deleteOrganization(id: number): Promise<boolean> {
-        throw new Error("Method not implemented.");
+    async deleteOrganization(id: number): Promise<boolean> {
+        const query = {
+            text: 'DELETE FROM organization WHERE id_organization = $1',
+            values: [id],
+          };
+          
+        const result = await pool.query(query);
+
+        if (!result.rowCount) {
+            throw new NotFoundError('Organization not found');
+        }
+        
+        return true
     }
 }
