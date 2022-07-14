@@ -33,8 +33,19 @@ export default class implements IOrganizationAdapter {
         return result.rows.map(org => new Organization(org))
     }
 
-    updateOrganization(organization: Organization): Promise<boolean> {
-        throw new Error("Method not implemented.");
+    async updateOrganization(id: number, name: string, status: number): Promise<boolean> {
+        const query = {
+            text: 'UPDATE organization SET name = $2, status = $3 WHERE id_organization = $1',
+            values: [id, name, status],
+          };
+          
+        const result = await pool.query(query);
+
+        if (!result.rowCount) {
+            throw new NotFoundError('Organization not found');
+        }
+        
+        return true
     }
 
     async deleteOrganization(id: number): Promise<boolean> {
@@ -48,7 +59,7 @@ export default class implements IOrganizationAdapter {
         if (!result.rowCount) {
             throw new NotFoundError('Organization not found');
         }
-        
+
         return true
     }
 }

@@ -19,8 +19,8 @@ export default class implements IOrganizationUseCase {
         return this.adapter.getAllOrganizations()
     }
 
-    updateOrganization(organization: Organization): Promise<boolean> {
-        return this.adapter.updateOrganization(organization)
+    updateOrganization(id: number, name: string, status: number): Promise<boolean> {
+        return this.adapter.updateOrganization(id, name, status)
     }
 
     deleteOrganization(id: number): Promise<boolean> {

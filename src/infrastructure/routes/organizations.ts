@@ -27,7 +27,6 @@ export default class {
         
         router.delete('/', async (req: Request, res: Response, next: NextFunction) => {
             try {
-                console.log(req.body.id)
                 await useCase.deleteOrganization(req.body.id)
                 return res.status(200).send("Organization deleted!")
             } catch (err) {
@@ -35,8 +34,13 @@ export default class {
             }
         })
 
-        router.put('/', async (req: Request, res: Response) => {
-            res.status(200).send("Organization updated!")
+        router.put('/', async (req: Request, res: Response, next: NextFunction) => {
+            try {
+                await useCase.updateOrganization(req.body.id, req.body.name, req.body.status)
+                return res.status(200).send("Organization updated!")
+            } catch (err) {
+                return next(err)
+            }
         })
 
         router.use(errorHandler)
