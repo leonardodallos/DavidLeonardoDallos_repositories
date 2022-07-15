@@ -8,11 +8,25 @@ This is a REST api for Organization management and Repository queries. I used ht
 
 ## Technology Stack
 
+- TypeScript
 - NodeJs
 - Express
 - CockroachDB
 - Postman
 - Jest and Supertest
+
+```powershell
+npm run test
+
+ PASS  __tests__/organizations.test.ts
+ PASS  __tests__/repositories.test.ts (6.067 s)
+
+Test Suites: 2 passed, 2 total
+Tests:       7 passed, 7 total
+Snapshots:   0 total
+Time:        7.722 s
+Ran all test suites.
+```
 
 ## Endpoints
 
@@ -27,7 +41,6 @@ The base route is `/api/v1/`, then according to the feature, we can found `repos
 - `GET /api/v1/repositories` - Retrieves list of states of repositories
 - `GET /api/v1/repositories/metrics/:idTribe` - Get repositories with metrics according to acceptance criteria
 - `GET /api/v1//repositories/csvMetrics/:idTribe` - Generate CSV file with repository metrics
-
 
 ## How to Run
 
