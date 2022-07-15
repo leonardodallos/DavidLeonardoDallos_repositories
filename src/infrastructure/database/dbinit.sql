@@ -17,14 +17,14 @@ CREATE TABLE repository (
     name char(50) NOT NULL,
     state char(1) NOT NULL CHECK (state IN ('E', 'D', 'A')),
     create_time timestamp NOT NULL,
-    status char(1) NOT NULL CHECK (state IN ('I', 'A')),
+    status char(1) NOT NULL CHECK (status IN ('I', 'A')),
     id_tribe int NOT NULL,
      FOREIGN KEY(id_tribe) REFERENCES tribe (id_tribe)
 );
 
 CREATE TABLE metrics (
     id_repository INT,
-    FOREIGN KEY(id_repository) REFERENCES tribe (id_tribe),
+    FOREIGN KEY(id_repository) REFERENCES repository (id_repository),
     coverage numeric NOT NULL CHECK (coverage >= 0 AND coverage <= 100),
     bugs int NOT NULL,
     vulnerabilities INT NOT NULL,
