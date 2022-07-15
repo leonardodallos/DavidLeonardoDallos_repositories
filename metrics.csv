@@ -1,0 +1,4 @@
+ID,Name,Tribe,Organization,Coverage,Code Smells,Bugs,Vulnerabilities,Hotspots,State,Verification State
+779135898730528769,cd-common-utils,Centro Digital,Banco,80%,1,0,2,2,Habilitado,Verificado
+779135898970128385,cd-common-text,Centro Digital,Banco,96%,1,0,2,2,Habilitado,Verificado
+779135899459649537,cd-common-files,Centro Digital,Banco,78%,1,0,2,2,Habilitado,Verificado

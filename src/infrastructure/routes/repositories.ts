@@ -36,7 +36,7 @@ export default class {
     router.get('/csvMetrics/:id', async(req: Request, res: Response, next: NextFunction)=>{
       try {
         await useCase.generateCSVMetrics(req.params.id)
-        return res.status(200)
+        return res.status(200).send('CSV file generated')
       } catch (err) {
           return next(err)
       }
