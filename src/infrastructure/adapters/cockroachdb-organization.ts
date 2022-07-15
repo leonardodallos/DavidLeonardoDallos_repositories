@@ -1,7 +1,7 @@
-import { NotFoundError } from "../../infrastructure/commons/errors/not-found-error";
+import { NotFoundError } from "../commons/errors/not-found-error";
 import { IOrganizationAdapter } from "../../application/interfaces/organization";
 import { Organization } from "../../domain/organization";
-import  pool  from "../../infrastructure/database/cockroach"
+import  pool  from "../database/cockroach"
 
 export default class implements IOrganizationAdapter {
 
