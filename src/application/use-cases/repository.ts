@@ -1,6 +1,8 @@
 import { IRepositoryAdapter, IRepositoryUseCase } from '../interfaces/repository'
 import { MetricsRepository } from 'src/domain/metrics-repository'
 import fetch from 'node-fetch'
+import * as csvWriter from 'csv-writer'
+import path from 'path'
 
 export default class implements IRepositoryUseCase {
     private adapter: IRepositoryAdapter
@@ -32,5 +34,28 @@ export default class implements IRepositoryUseCase {
             return _results
         })
         return verificationStates
+    }
+
+    async generateCSVMetrics(id_tribe: string) {
+        const writer = csvWriter.createObjectCsvWriter({
+            path: path.resolve(__dirname, 'metrics.csv'),
+            header: [
+              { id: 'id', title: 'ID' },
+              { id: 'name', title: 'Name' },
+              { id: 'tribe', title: 'Tribe' },
+              { id: 'organization', title: 'Organization' },
+              { id: 'coverage', title: 'Coverage' },
+              { id: 'codeSmells', title: 'Code Smells' },
+              { id: 'bugs', title: 'Bugs' },
+              { id: 'vulnerabilities', title: 'Vulnerabilities' },
+              { id: 'hotspots', title: 'Hotspots' },
+              { id: 'state', title: 'State' },
+              { id: 'verificationState', title: 'Verification State' }
+            ],
+          });
+        const metrics = await this.getMetricsRepository(id_tribe)
+          writer.writeRecords(metrics).then(() => {
+            console.log('CSV generated!');
+          });
     }
 }

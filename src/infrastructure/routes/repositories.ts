@@ -26,9 +26,17 @@ export default class {
 
     router.get('/metrics/:id', async(req: Request, res: Response, next: NextFunction)=>{
       try {
-        console.log(req.params)
         const repositories = await useCase.getMetricsRepository(req.params.id)
         return res.status(200).json(repositories)
+      } catch (err) {
+          return next(err)
+      }
+    })
+
+    router.get('/csvMetrics/:id', async(req: Request, res: Response, next: NextFunction)=>{
+      try {
+        await useCase.generateCSVMetrics(req.params.id)
+        return res.status(200)
       } catch (err) {
           return next(err)
       }

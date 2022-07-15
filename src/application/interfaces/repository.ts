@@ -6,6 +6,7 @@ interface IRepositoryAdapter {
 
 interface IRepositoryUseCase {
     getMetricsRepository(id_tribe: string): Promise<MetricsRepository[]>
+    generateCSVMetrics(id_tribe: string)
 }
 
 export { IRepositoryAdapter, IRepositoryUseCase }
